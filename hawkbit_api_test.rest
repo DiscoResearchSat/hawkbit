@@ -1,0 +1,99 @@
+@hawkbit = http://localhost:8080
+@username = admin
+@password = admin
+
+### Enable Target Token Authentication
+PUT {{hawkbit}}/rest/v1/system/configs/authentication.targettoken.enabled
+Accept: application/hal+json
+Authorization: Basic {{username}}:{{password}}
+Content-Type: application/json
+
+{
+  "value": true
+}
+
+### Set Polling time to the lowest limit
+PUT {{hawkbit}}/rest/v1/system/configs/pollingTime
+Accept: application/hal+json
+Authorization: Basic {{username}}:{{password}}
+Content-Type: application/json
+
+{
+  "value": "00:00:30"
+}
+
+### Create target with pre-defined token
+POST {{hawkbit}}/rest/v1/targets
+Accept: application/hal+json
+Authorization: Basic {{username}}:{{password}}
+Content-Type: application/json
+
+[{
+  "controllerId": "SATOSProbeMartinRPI4",
+  "name": "Martin Development",
+  "description": "Development RPI of Martin",
+  // Remove security token if you want a randomly generated one
+  "securityToken": "ae1f1f03da7372d1afdeb95e9dcb3ded" 
+}]
+
+### Create a Distributions Sets for RPI
+POST {{hawkbit}}/rest/v1/distributionsets
+Accept: application/hal+json
+Authorization: Basic {{username}}:{{password}}
+Content-Type: application/json
+
+[{
+  "requiredMigrationStep": false,
+  "name": "SATOS-RPI4",
+  "description": "SATOS for RPI4",
+  "type": "os",
+  "version": "1.1"
+}]
+
+### Create the corresponding software module
+POST {{hawkbit}}/rest/v1/softwaremodules
+Accept: application/hal+json
+Authorization: Basic {{username}}:{{password}}
+Content-Type: application/json
+
+[{
+  "vendor": "MartB",
+  "name": "SATOS-RPI4",
+  "description": "First OTA version of SATOS",
+  "type": "os",
+  "version": "1.1"
+}]
+
+### Create a Distributions Sets for RPI3
+POST {{hawkbit}}/rest/v1/distributionsets
+Accept: application/hal+json
+Authorization: Basic {{username}}:{{password}}
+Content-Type: application/json
+
+[{
+  "requiredMigrationStep": false,
+  "name": "SATOS-RPI3",
+  "description": "SATOS for RPI3",
+  "type": "os",
+  "version": "1.0"
+}]
+
+### Create the corresponding software module
+POST {{hawkbit}}/rest/v1/softwaremodules
+Accept: application/hal+json
+Authorization: Basic {{username}}:{{password}}
+Content-Type: application/json
+
+[{
+  "vendor": "MartB",
+  "name": "SATOS-RPI3",
+  "description": "First OTA version of SATOS",
+  "type": "os",
+  "version": "1.0"
+}]
+
+
+### 
+GET {{hawkbit}}/rest/v1/distributionsets/3
+Accept: application/json
+Authorization: Basic {{username}}:{{password}}
