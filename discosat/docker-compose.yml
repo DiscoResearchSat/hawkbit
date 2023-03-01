@@ -1,0 +1,18 @@
+services:
+  hawkbit:
+    container_name: hawkbit-satos
+    build:
+      context:  ./hawkbit-satos/
+      dockerfile: Dockerfile
+    image: hawkbit-satos:latest
+    volumes:
+      - ./hawkbit-satos/data:/data
+    env_file:
+      - hawkbit-satos/.env
+    networks:
+      - hawkbit-updater
+    ports:
+      - "8080:8080"
+
+networks:
+  hawkbit-updater: {}

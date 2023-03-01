@@ -1,0 +1,3 @@
+# Ignore the secrets
+hawkbit-satos/application-users.properties
+.env
