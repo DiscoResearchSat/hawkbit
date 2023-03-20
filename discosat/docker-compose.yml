@@ -7,13 +7,16 @@ services:
     image: hawkbit-satos:latest
     restart: unless-stopped
     volumes:
-      - ./hawkbit-satos/data:/data
+      - hawkbit:/data
     env_file:
       - hawkbit-satos/.env
     networks:
       - hawkbit-updater
     ports:
       - "127.0.0.1:8080:8080"
+
+volumes:
+  hawkbit:
 
 networks:
   hawkbit-updater: {}
